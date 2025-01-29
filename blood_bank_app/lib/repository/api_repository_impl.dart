@@ -4,11 +4,13 @@ import 'package:dio/dio.dart';
 import '../models/donor_model.dart';
 import 'api_repository.dart';
 
+const URL = 'http://192.168.1.178:8080';
+
 class ApiRepositoryImpl implements ApiRepository {
   final Dio dio;
 
   ApiRepositoryImpl(this.dio) {
-    dio.options.baseUrl = 'http://192.168.1.178:8080/api';
+    dio.options.baseUrl = '$URL/api';
     dio.options.headers = {'Content-Type': 'application/json'};
   }
 
@@ -23,7 +25,9 @@ class ApiRepositoryImpl implements ApiRepository {
         return false;
       }
     } catch (e) {
-      messageSnackBar("Error occurred: $e", SnackBarType.error);
+      messageSnackBar(
+          "Erro: Não foi possível conectar-se à API. Verifique sua conexão com a internet e tente novamente.",
+          SnackBarType.error);
       return false;
     }
   }
